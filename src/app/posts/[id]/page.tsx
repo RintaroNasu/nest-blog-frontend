@@ -12,7 +12,6 @@ export default async function Post({ params }: PostPageProps) {
     <div className={styles.container}>
       <h2 className={styles.title}>{post.title}</h2>
       <p className={styles.author}>{post.author}</p>
-      <p className={styles.content}>{post.content}</p>
     </div>
   );
 }
