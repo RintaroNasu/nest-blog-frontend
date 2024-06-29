@@ -18,7 +18,7 @@ export default function Home() {
       setPosts(allPosts);
     };
     fetchData();
-  },[]);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,13 +30,12 @@ export default function Home() {
     };
     console.log("newPost=" + newPost);
     try {
-      const createdPost = await PostBlogData(newPost);
-      if (createdPost) {
-        console.log("Post created successfully!", createdPost);
-        setTitle("");
-        setContent("");
-        setAuthor("");
-      }
+      await PostBlogData(newPost);
+      console.log("Post created successfully!");
+      window.location.reload();
+      setTitle("");
+      setContent("");
+      setAuthor("");
     } catch (error) {
       console.error("Failed to create post:", error);
     }
@@ -46,20 +45,28 @@ export default function Home() {
       <p className="text-center text-4xl mt-5">Next.js Blog</p>
       <div className={styles.container}>
         <div>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Title:</label>
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-lg">
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+                Title:
+              </label>
+              <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             </div>
-            <div>
-              <label>Content:</label>
-              <textarea value={content} onChange={(e) => setContent(e.target.value)} required></textarea>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="content">
+                Content:
+              </label>
+              <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"></textarea>
             </div>
-            <div>
-              <label>Author:</label>
-              <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="author">
+                Author:
+              </label>
+              <input id="author" type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             </div>
-            <button type="submit">登録する</button>
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              登録する
+            </button>
           </form>
         </div>
         <ul className={styles.postList}>

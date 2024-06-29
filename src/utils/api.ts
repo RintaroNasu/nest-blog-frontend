@@ -1,4 +1,4 @@
-import { PostType } from "./Types";
+import { PostCreateInput } from "./Types";
 
 export async function getAllPosts() {
   try {
@@ -17,7 +17,7 @@ export async function getAllPosts() {
   }
 }
 
-export async function PostBlogData(postData: PostType) {
+export async function PostBlogData(postData: PostCreateInput) {
   try {
     const response = await fetch("http://localhost:5050/posts", {
       method: "POST",
@@ -28,7 +28,7 @@ export async function PostBlogData(postData: PostType) {
       cache: "no-store",
     });
     const data = await response.json();
-    console.log("data" + data)
+    console.log("data" + data);
     return data;
   } catch (error) {
     console.error("Failed to fetch posts:", error);
